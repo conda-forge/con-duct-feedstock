@@ -21,7 +21,7 @@ requirements:
     - pip
   run:
     - python >={{ python_min }}
-    - __linux  # Contstrain to linux
+    - __linux  # Constrain to linux
     - matplotlib
     - PyYaml
 
