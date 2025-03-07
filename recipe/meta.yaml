@@ -12,7 +12,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -21,8 +21,9 @@ requirements:
     - pip
   run:
     - python >={{ python_min }}
-    - __linux  # Contstrain to linux
+    - __linux  # Constrain to linux
     - matplotlib
+    - PyYaml
 
 test:
   imports:
