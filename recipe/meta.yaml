@@ -24,6 +24,7 @@ requirements:
     - __linux  # Constrain to linux
     - matplotlib
     - PyYaml
+    - pyout
 
 test:
   imports:
