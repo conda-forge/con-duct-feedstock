@@ -19,6 +19,7 @@ requirements:
     - python {{ python_min }}
     - setuptools >=46.4.0
     - pip
+    - versioningit
   run:
     - python >={{ python_min }}
     - __linux  # Constrain to linux
