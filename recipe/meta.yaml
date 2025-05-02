@@ -26,7 +26,6 @@ requirements:
     - matplotlib
     - PyYaml
     - pyout
-    - procps‑ng
 
 test:
   imports:
