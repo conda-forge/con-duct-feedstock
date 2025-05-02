@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/con_duct-{{ version }}.tar.gz
   sha256: 7615ed060c875a2dd448bd52823ece95538e89247a449e9f60cf422429aab8e6
+  patches:
+    - debug-spawn-children.patch
 
 build:
   noarch: python

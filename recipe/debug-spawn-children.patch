@@ -1,0 +1,18 @@
+diff --git a/src/con_duct/__main__.py b/src/con_duct/__main__.py
+index 1926a9e..8c240ce 100755
+--- a/src/con_duct/__main__.py
++++ b/src/con_duct/__main__.py
+@@ -489,7 +489,12 @@ class Report:
+                         ),
+                     )
+         except subprocess.CalledProcessError as exc:  # when session_id has no processes
+-            lgr.debug("Error collecting sample: %s", str(exc))
++            lgr.warning("Error collecting sample: %s", str(exc))
+++           lgr.warning("cmd:", e.cmd, file=sys.stderr)
+++           lgr.warning("returncode:", e.returncode, file=sys.stderr)
+++           lgr.warning("output:", repr(e.output), file=sys.stderr)
+++           lgr.warning("stderr:", getattr(e, "stderr", None), file=sys.stderr)
+++           traceback.print_exc(file=sys.stderr)
+             return None
+ 
+         sample.averages = Averages.from_sample(sample)
