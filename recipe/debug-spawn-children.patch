@@ -1,12 +1,13 @@
 diff --git a/src/con_duct/__main__.py b/src/con_duct/__main__.py
-index 1926a9e..2276840 100755
+index 1926a9e..64b61b7 100755
 --- a/src/con_duct/__main__.py
 +++ b/src/con_duct/__main__.py
-@@ -489,7 +489,10 @@ class Report:
+@@ -489,7 +489,11 @@ class Report:
                          ),
                      )
          except subprocess.CalledProcessError as exc:  # when session_id has no processes
 -            lgr.debug("Error collecting sample: %s", str(exc))
++            import traceback
 +            lgr.warning("Error collecting sample: %s", str(exc))
 +            lgr.warning("cmd:", exc.cmd)
 +            lgr.warning("returncode:", exc.returncode)
