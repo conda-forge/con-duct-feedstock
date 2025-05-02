@@ -8,11 +8,9 @@ index 1926a9e..b1b7506 100755
          except subprocess.CalledProcessError as exc:  # when session_id has no processes
 -            lgr.debug("Error collecting sample: %s", str(exc))
 +            lgr.warning("Error collecting sample: %s", str(exc))
-+            lgr.warning("cmd:", e.cmd, file=sys.stderr)
-+            lgr.warning("returncode:", e.returncode, file=sys.stderr)
-+            lgr.warning("output:", repr(e.output), file=sys.stderr)
-+            lgr.warning("stderr:", getattr(e, "stderr", None), file=sys.stderr)
++            lgr.warning("cmd:", exc.cmd)
++            lgr.warning("returncode:", exc.returncode)
 +            traceback.print_exc(file=sys.stderr)
              return None
- 
+
          sample.averages = Averages.from_sample(sample)
