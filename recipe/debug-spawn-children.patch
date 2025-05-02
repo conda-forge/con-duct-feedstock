@@ -1,17 +1,35 @@
 diff --git a/src/con_duct/__main__.py b/src/con_duct/__main__.py
-index 1926a9e..64b61b7 100755
+index 1926a9e..8e9051c 100755
 --- a/src/con_duct/__main__.py
 +++ b/src/con_duct/__main__.py
-@@ -489,7 +489,11 @@ class Report:
+@@ -489,7 +489,8 @@ class Report:
                          ),
                      )
          except subprocess.CalledProcessError as exc:  # when session_id has no processes
 -            lgr.debug("Error collecting sample: %s", str(exc))
 +            import traceback
-+            lgr.warning("Error collecting sample: %s", str(exc))
-+            lgr.warning("cmd:", exc.cmd)
-+            lgr.warning("returncode:", exc.returncode)
 +            traceback.print_exc(file=sys.stderr)
              return None
  
          sample.averages = Averages.from_sample(sample)
+diff --git a/test/test_e2e.py b/test/test_e2e.py
+index d222135..3f9e9df 100644
+--- a/test/test_e2e.py
++++ b/test/test_e2e.py
+@@ -32,7 +32,12 @@ def test_spawn_children(temp_output_dir: str, mode: str, num_children: int) -> N
+         if proc["cmd"].startswith("sleep")
+     )
+     # Add one pid for the hold-the-door process, see spawn_children.sh line 7
+-    if mode == "setsid":
+-        assert len(all_child_pids) == 1
+-    else:
+-        assert len(all_child_pids) == num_children + 1
++    try:
++        if mode == "setsid":
++            assert len(all_child_pids) == 1
++        else:
++            assert len(all_child_pids) == num_children + 1
++    except AssertionError:
++        print(f"Command was: {command}", file=sys.stderr)
++        print(f"All Samples: {all_samples}", file=sys.stderr)
++        raise
