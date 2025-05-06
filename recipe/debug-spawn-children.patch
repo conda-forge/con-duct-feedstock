@@ -11,45 +11,10 @@ index 1926a9e..2c23489 100755
                      str(self.session_id),
                      "-o",
 diff --git a/test/test_e2e.py b/test/test_e2e.py
-index d222135..0310a8e 100644
+index d222135..878b0e1 100644
 --- a/test/test_e2e.py
 +++ b/test/test_e2e.py
-@@ -3,6 +3,7 @@ import json
- from pathlib import Path
- import subprocess
- import pytest
-+import sys
- 
- TEST_SCRIPT_DIR = Path(__file__).with_name("data")
- 
-@@ -12,8 +13,10 @@ def test_sanity(temp_output_dir: str) -> None:
-     subprocess.check_output(command, shell=True)
- 
- 
--@pytest.mark.parametrize("mode", ["plain", "subshell", "nohup", "setsid"])
--@pytest.mark.parametrize("num_children", [1, 2, 10])
-+# @pytest.mark.parametrize("mode", ["plain", "subshell", "nohup", "setsid"])
-+# @pytest.mark.parametrize("num_children", [1, 2, 10])
-+@pytest.mark.parametrize("mode", ["plain"])
-+@pytest.mark.parametrize("num_children", [1])
- def test_spawn_children(temp_output_dir: str, mode: str, num_children: int) -> None:
-     duct_prefix = f"{temp_output_dir}log_"
-     script_path = TEST_SCRIPT_DIR / "spawn_children.sh"
-@@ -24,15 +27,31 @@ def test_spawn_children(temp_output_dir: str, mode: str, num_children: int) -> N
-     with open(f"{duct_prefix}usage.json") as usage_file:
-         all_samples = [json.loads(line) for line in usage_file]
- 
-+    # On conda, sleep cmd does not actually start with "sleep", so lets get that
-+    import time
-+    with subprocess.Popen(["sleep", "0.5"]) as p:
-+        time.sleep(0.1)
-+        actual_sleep_cmd = subprocess.check_output(
-+            ["ps", "-p", str(p.pid), "-o", "cmd="],
-+            text=True,
-+        )
-+
-     # Only count the child sleep processes
-     all_child_pids = set(
+@@ -29,7 +29,7 @@ def test_spawn_children(temp_output_dir: str, mode: str, num_children: int) -> N
          pid
          for sample in all_samples
          for pid, proc in sample["processes"].items()
@@ -57,18 +22,4 @@ index d222135..0310a8e 100644
 +        if "sleep" in proc["cmd"]
      )
      # Add one pid for the hold-the-door process, see spawn_children.sh line 7
--    if mode == "setsid":
--        assert len(all_child_pids) == 1
--    else:
--        assert len(all_child_pids) == num_children + 1
-+    try:
-+        if mode == "setsid":
-+            assert len(all_child_pids) == 1
-+        else:
-+            assert len(all_child_pids) == num_children + 1
-+    except AssertionError:
-+        print("ALL CHILD PIDS TEST FAILED", file=sys.stderr)
-+        print(f"ACTUAL SLEEP CMD: {actual_sleep_cmd}")
-+        print(f"Command was: {command}", file=sys.stderr)
-+        print(f"All Samples: {all_samples}", file=sys.stderr)
-+        raise
+     if mode == "setsid":
