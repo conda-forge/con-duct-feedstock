@@ -1,5 +1,5 @@
 diff --git a/test/test_e2e.py b/test/test_e2e.py
-index d222135..94c446a 100644
+index d222135..0310a8e 100644
 --- a/test/test_e2e.py
 +++ b/test/test_e2e.py
 @@ -3,6 +3,7 @@ import json
@@ -42,7 +42,7 @@ index d222135..94c446a 100644
          for sample in all_samples
          for pid, proc in sample["processes"].items()
 -        if proc["cmd"].startswith("sleep")
-+        if proc["cmd"].contains("sleep")
++        if "sleep" in proc["cmd"]
      )
      # Add one pid for the hold-the-door process, see spawn_children.sh line 7
 -    if mode == "setsid":
