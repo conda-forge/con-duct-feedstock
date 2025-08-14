@@ -36,6 +36,7 @@ test:
     - python {{ python_min }}
     - pytest
     - pytest-cov
+    - pytest-rerunfailures
     - matplotlib
     - procps-ng  # provide ps for usage in tests
   source_files:
