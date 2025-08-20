@@ -144,6 +144,5 @@ Feedstock Maintainers
 =====================
 
 * [@asmacdo](https://github.com/asmacdo/)
-* [@jwodder](https://github.com/jwodder/)
 * [@yarikoptic](https://github.com/yarikoptic/)
 
