@@ -1,5 +1,5 @@
 {% set name = "con-duct" %}
-{% set version = "0.15.0" %}
+{% set version = "0.16.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/con_duct-{{ version }}.tar.gz
-  sha256: 1356784360670ed0f854f65f9df00986d3a3ed0b7520abe0b039b08812f2696e
+  sha256: 28267ad7b1a8455ef4aaef63fae28d74bdc0d393515fcbb4b544d649933b074c
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   host:
