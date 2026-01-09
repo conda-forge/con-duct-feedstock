@@ -12,7 +12,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -22,7 +22,7 @@ requirements:
     - versioningit
   run:
     - python >={{ python_min }}
-    - __linux  # Constrain to linux
+    - __unix  # Constrain to linux and mac
     - matplotlib
     - PyYaml
     - pyout
@@ -38,7 +38,8 @@ test:
     - pytest-cov
     - pytest-rerunfailures
     - matplotlib
-    - procps-ng  # provide ps for usage in tests
+    # ps is needed for tests, macOS provides by default
+    - procps-ng  # [linux]
   source_files:
     - test
     - tox.ini
@@ -54,3 +55,4 @@ extra:
   recipe-maintainers:
     - asmacdo
     - yarikoptic
+    - CodyCBakerPhD
