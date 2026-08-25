@@ -1,13 +1,13 @@
 {% set name = "con-duct" %}
-{% set version = "0.21.0" %}
+{% set version = "0.22.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/con_duct-{{ version }}.tar.gz
-  sha256: b5600613fc59350b7b92bf34e89893860436ef8f112bf9ce6b97d1498e9699da
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/con_duct-{{ version }}.tar.gz
+  sha256: 6762fff98ddab55dc18c8f89a6fce7f6b98571e90f1b60412a71c82b0a2b43d7
 
 build:
   noarch: python
