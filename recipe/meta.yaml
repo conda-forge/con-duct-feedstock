@@ -1,5 +1,5 @@
 {% set name = "con-duct" %}
-{% set version = "0.22.0" %}
+{% set version = "0.23.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/con_duct-{{ version }}.tar.gz
-  sha256: 6762fff98ddab55dc18c8f89a6fce7f6b98571e90f1b60412a71c82b0a2b43d7
+  sha256: c785733ce0ddc2baebc1d4f7b6837ac115f72fe9560969e18f1ef6d00fd3fec8
 
 build:
   noarch: python
